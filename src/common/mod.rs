@@ -1,10 +1,9 @@
 mod code;
 mod options;
 mod slice;
+mod table_cache;
 
-pub use slice::*;
-
-use self::code::Status;
+pub use self::{code::Status, options::*, slice::*, table_cache::*};
 
 pub trait Handle {
     fn key(&self) -> &Slice;
@@ -97,4 +96,46 @@ pub trait FileLock {
     fn unlock(&mut self);
 }
 
+pub struct Range {
+    pub start: Slice,
+    pub limit: Slice,
+}
+
 pub trait Table {}
+
+pub trait Snapshot {}
+
+pub trait Iterator {
+    fn seek_to_first(&mut self);
+    fn seek_to_last(&mut self);
+    fn seek(&mut self, target: &Slice);
+    fn next(&mut self);
+    fn prev(&mut self);
+    fn valid(&self) -> bool;
+    fn key(&self) -> &Slice;
+    fn value(&self) -> &Slice;
+    fn status(&mut self) -> Status;
+}
+
+pub trait DB {
+    fn open(options: &Options, name: &str, db: &mut Self) -> Status;
+
+    fn put(&mut self, options: &WriteOptions, key: &Slice, value: &Slice) -> Status;
+    fn delete(&mut self, options: &WriteOptions, key: &Slice) -> Status;
+    fn write(&mut self, options: &WriteOptions, updates: &mut WriteBatch) -> Status;
+
+    fn get(&mut self, options: &ReadOptions, key: &Slice) -> Result<Slice, Status>;
+    fn new_iterator(&mut self, options: &ReadOptions) -> Box<dyn Iterator>;
+
+    fn get_snapshot(&mut self) -> Box<dyn Snapshot>;
+
+    fn get_property(&mut self, propname: &Slice) -> Option<String>;
+
+    fn get_approximate_sizes(&mut self, ranges: &Range, n: i64) -> Vec<u64>;
+
+    fn compact_range(&mut self, start: &Slice, end: &Slice);
+
+    fn destory_db(options: &Options, name: &str) -> Status;
+
+    fn repair_db(options: &Options, name: &str) -> Status;
+}
