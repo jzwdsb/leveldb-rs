@@ -36,9 +36,7 @@ impl CondVar {
         }
     }
 
-    pub fn wait(&self, guard: &mut MutexGuard<bool>) {
-    }
+    pub fn wait(&self, guard: &mut MutexGuard<bool>) {}
 
-    pub fn notify_one(&self) {
-    }
+    pub fn notify_one(&self) {}
 }

@@ -105,7 +105,7 @@ pub trait Table {}
 
 pub trait Snapshot {}
 
-pub trait Iterator {
+pub trait Iter {
     fn seek_to_first(&mut self);
     fn seek_to_last(&mut self);
     fn seek(&mut self, target: &Slice);
@@ -125,7 +125,7 @@ pub trait DB {
     fn write(&mut self, options: &WriteOptions, updates: &mut WriteBatch) -> Status;
 
     fn get(&mut self, options: &ReadOptions, key: &Slice) -> Result<Slice, Status>;
-    fn new_iterator(&mut self, options: &ReadOptions) -> Box<dyn Iterator>;
+    fn new_iterator(&mut self, options: &ReadOptions) -> Box<dyn Iter>;
 
     fn get_snapshot(&mut self) -> Box<dyn Snapshot>;
 

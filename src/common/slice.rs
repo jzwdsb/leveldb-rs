@@ -1,40 +1,56 @@
+use bytes::Bytes;
+
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct Slice {
-    data: Vec<u8>,
+    data: Bytes,
 }
 
 impl Slice {
     pub fn new() -> Self {
-        unimplemented!()
+        Self { data: Bytes::new() }
     }
 
     pub fn new_with_data(data: &[u8]) -> Self {
-        unimplemented!()
+        Self {
+            data: Bytes::copy_from_slice(data),
+        }
     }
 
     pub fn new_with_string(data: &str) -> Self {
-        unimplemented!()
+        Self {
+            data: Bytes::copy_from_slice(data.as_bytes()),
+        }
     }
 
     pub fn start_with(&self, prefix: &Self) -> bool {
-        unimplemented!()
+        self.data.starts_with(&prefix.data)
     }
 }
 
 impl ToString for Slice {
     fn to_string(&self) -> String {
-        unimplemented!()
+        String::from_utf8_lossy(&self.data).to_string()
     }
 }
 
 impl From<&str> for Slice {
     fn from(s: &str) -> Self {
-        unimplemented!()
+        Self::new_with_string(s)
     }
 }
 
 impl Default for Slice {
     fn default() -> Self {
-        unimplemented!()
+        Self::new()
+    }
+}
+
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_slice() {
+        let s = Slice::new_with_string("hello");
+        assert_eq!(s.to_string(), "hello");
     }
 }

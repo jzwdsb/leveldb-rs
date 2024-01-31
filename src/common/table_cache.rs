@@ -17,7 +17,7 @@ impl TableCache {
         options: &ReadOptions,
         file_number: u64,
         file_size: u64,
-    ) -> Box<dyn Iterator> {
+    ) -> Box<dyn Iter> {
         unimplemented!()
     }
 

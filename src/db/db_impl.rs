@@ -15,7 +15,7 @@ struct CompactionStats {
     bytes_written: u64,
 }
 
-struct DBImpl {
+pub struct DBImpl {
     env: Box<dyn Env>,
     internal_comparator: Box<dyn Comparator>,
     options: Options,
@@ -46,7 +46,7 @@ impl DB for DBImpl {
         todo!()
     }
 
-    fn new_iterator(&mut self, options: &ReadOptions) -> Box<dyn crate::common::Iterator> {
+    fn new_iterator(&mut self, options: &ReadOptions) -> Box<dyn crate::common::Iter> {
         todo!()
     }
 
