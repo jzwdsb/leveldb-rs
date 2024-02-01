@@ -1,4 +1,5 @@
 use bytes::Bytes;
+use std::ops::Index;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct Slice {
@@ -24,6 +25,22 @@ impl Slice {
 
     pub fn start_with(&self, prefix: &Self) -> bool {
         self.data.starts_with(&prefix.data)
+    }
+
+    pub fn len(&self) -> usize {
+        self.data.len()
+    }
+
+    pub fn data(&self) -> &[u8] {
+        &self.data
+    }
+}
+
+impl Index<usize> for Slice {
+    type Output = u8;
+
+    fn index(&self, index: usize) -> &Self::Output {
+        &self.data[index]
     }
 }
 

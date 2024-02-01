@@ -3,6 +3,8 @@ mod options;
 mod slice;
 mod table_cache;
 
+use std::cmp::Ordering;
+
 pub use self::{code::Status, options::*, slice::*, table_cache::*};
 
 pub trait Handle {
@@ -31,7 +33,7 @@ pub trait FilterPolicy {
 }
 
 pub trait Comparator {
-    fn compare(&self, a: &Slice, b: &Slice) -> std::cmp::Ordering;
+    fn compare(&self, a: &Slice, b: &Slice) -> Ordering;
     fn name(&self) -> &str;
     fn find_shortest_separator(&self, start: &mut Slice, limit: &Slice);
     fn find_short_successor(&self, key: &mut Slice);

@@ -1,4 +1,4 @@
-use super::DBImpl;
+use crate::db::level_db::DBImpl;
 
 use crate::common::{Iter, Status};
 
