@@ -28,7 +28,7 @@ pub trait Cache {
 
 pub trait FilterPolicy {
     fn name(&self) -> &str;
-    fn create_filter(&self, keys: &Slice) -> Slice;
+    fn create_filter(&self, keys: &[Slice]) -> Slice;
     fn key_may_match(&self, key: &Slice, filter: &Slice) -> bool;
 }
 

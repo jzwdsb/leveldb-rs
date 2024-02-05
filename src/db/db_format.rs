@@ -125,7 +125,7 @@ pub mod level_db {
             todo!()
         }
 
-        fn create_filter(&self, keys: &Slice) -> Slice {
+        fn create_filter(&self, keys: &[Slice]) -> Slice {
             todo!()
         }
 

@@ -17,6 +17,12 @@ impl Slice {
         }
     }
 
+    pub fn new_with_vec(data: Vec<u8>) -> Self {
+        Self {
+            data: Bytes::from(data),
+        }
+    }
+
     pub fn new_with_string(data: &str) -> Self {
         Self {
             data: Bytes::copy_from_slice(data.as_bytes()),

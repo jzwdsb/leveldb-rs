@@ -2,6 +2,7 @@ mod bloom_filter;
 mod codec;
 mod crc32;
 mod env;
+mod hash;
 mod logging;
 mod random;
 

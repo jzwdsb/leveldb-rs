@@ -32,7 +32,7 @@ pub mod level_db {
         dst.push_str(std::str::from_utf8(&buf).unwrap());
     }
 
-    pub fn decode_fixed32(src: &Slice) -> u32 {
+    pub fn decode_fixed32(src: &[u8]) -> u32 {
         (src[0] as u32) | ((src[1] as u32) << 8) | ((src[2] as u32) << 16) | ((src[3] as u32) << 24)
     }
 
