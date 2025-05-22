@@ -16,7 +16,7 @@ pub mod level_db {
     } // mod config
 
     #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
-    enum ValueType {
+    pub enum ValueType {
         KTypeDeletion = 0x0,
         KTypeValue = 0x1,
     } // enum ValueType
@@ -78,7 +78,7 @@ pub mod level_db {
         Slice::new_with_data(&internal_key.data()[..internal_key.len() - 8])
     }
 
-    struct InternalKeyComparator {
+    pub struct InternalKeyComparator {
         user_comparator: Box<dyn Comparator>,
     } // struct InternalKeyComparator
 
@@ -175,4 +175,29 @@ pub mod level_db {
             }
         }
     } // impl Default for InternalKey
+
+    pub struct LookupKey {
+        mem: String,
+    }
+
+    impl LookupKey {
+        pub fn new_with_key(user_key: &Slice, sequence: SequenceNumber) -> Self {
+            let mut mem = String::new();
+
+            mem.push_str(&user_key.to_string());
+            put_fixed64(
+                &mut mem,
+                pack_sequence_and_type(sequence, K_VALUE_TYPE_FOR_SEEK),
+            );
+            Self { mem }
+        }
+
+        pub fn memtable_key(&self) -> Slice {
+            Slice::new_with_data(self.mem.as_bytes())
+        }
+
+        pub fn internal_key(&self) -> Slice {
+            Slice::new_with_data(self.mem.as_bytes())
+        }
+    }
 } // pub mod level_db

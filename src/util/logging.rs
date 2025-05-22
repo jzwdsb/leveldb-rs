@@ -1,21 +1,25 @@
 use crate::common::Slice;
 
 pub fn append_number_to(dest: &mut String, num: u64) {
-    unimplemented!()
+    dest.push_str(&num.to_string());
 }
 
 pub fn append_escaped_string_to(dest: &mut String, src: &Slice) {
-    unimplemented!()
-}
-
-pub fn number_to_string(num: u64) -> String {
-    unimplemented!()
+    for &c in src.data() {
+        if c >= b' ' && c <= b'~' {
+            dest.push(c as char);
+        } else {
+            dest.push_str(&format!("\\x{:02x}", c));
+        }
+    }
 }
 
 pub fn escape_string(src: &Slice) -> String {
-    unimplemented!()
+    let mut dest = String::new();
+    append_escaped_string_to(&mut dest, src);
+    dest
 }
 
 pub fn comsume_deciamal_number(src: &mut Slice) -> Option<u64> {
-    unimplemented!()
+    todo!("comsume_deciamal_number")
 }

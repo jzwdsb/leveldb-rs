@@ -1,6 +1,6 @@
 use crate::port::Mutex;
 
-use super::{Cache, Handle, Slice};
+use crate::common::{Cache, Handle, Slice};
 
 use std::collections::HashMap;
 
@@ -18,15 +18,15 @@ struct LRUHandle {
 }
 
 impl Handle for LRUHandle {
-    fn key(&self) -> &super::Slice {
+    fn key(&self) -> &Slice {
         todo!()
     }
 
-    fn value(&self) -> &super::Slice {
+    fn value(&self) -> &Slice {
         todo!()
     }
 
-    fn value_mut(&mut self) -> &mut super::Slice {
+    fn value_mut(&mut self) -> &mut Slice {
         todo!()
     }
 
@@ -64,11 +64,11 @@ impl LRUCache {
 }
 
 impl Cache for LRUCache {
-    fn insert(&mut self, key: &super::Slice, value: &super::Slice) -> Box<dyn Handle> {
+    fn insert(&mut self, key: &Slice, value: &Slice) -> Box<dyn Handle> {
         todo!()
     }
 
-    fn lookup(&mut self, key: &super::Slice) -> Option<Box<dyn Handle>> {
+    fn lookup(&mut self, key: &Slice) -> Option<Box<dyn Handle>> {
         todo!()
     }
 
@@ -76,7 +76,7 @@ impl Cache for LRUCache {
         todo!()
     }
 
-    fn erase(&mut self, key: &super::Slice) {
+    fn erase(&mut self, key: &Slice) {
         todo!()
     }
 
